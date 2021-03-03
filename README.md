@@ -1,3 +1,3 @@
 # RTL Markdown
 
-Markdown right to left support
+Vscode markdown right to left support
