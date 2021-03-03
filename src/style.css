@@ -1,0 +1,13 @@
+.editor-instance[aria-label*=".rtl.md"] .view-lines div.view-line {
+    direction: rtl;
+    width: calc(100% - 30px) !important;
+}
+
+.editor-instance[aria-label*=".rtl.md"] .view-line > span {
+    direction: rtl;
+}
+
+.editor-instance[aria-label*=".rtl.md"] .selected-text[style*="left:0"] {
+    right: 0;
+    left: auto !important;
+}

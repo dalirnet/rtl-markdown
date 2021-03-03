@@ -1,0 +1,46 @@
+{
+    "name": "rtl-markdown",
+    "displayName": "RTL Markdown",
+    "description": "Markdown right to left support",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.53.0"
+    },
+    "categories": [
+        "Formatters",
+        "Other"
+    ],
+    "activationEvents": [
+        "onLanguage:markdown"
+    ],
+    "main": "./src/extension.js",
+    "contributes": {
+        "commands": [
+            {
+                "command": "rtl-markdown.rtl",
+                "title": "RTL Markdown",
+                "icon": "./src/icon/rtl.svg"
+            },
+            {
+                "command": "rtl-markdown.ltr",
+                "title": "LTR Markdown",
+                "icon": "./src/icon/ltr.svg"
+            }
+        ],
+        "menus": {
+            "editor/title": [
+                {
+                    "when": "resourceFilename =~ /^(?:.*(\\.rtl\\.md)).*$/",
+                    "command": "rtl-markdown.ltr",
+                    "group": "1_run"
+                },
+                {
+                    "when": "resourceFilename =~ /^(?!.*(\\.rtl\\.md)).*$/",
+                    "command": "rtl-markdown.rtl",
+                    "group": "1_run"
+                }
+            ]
+        }
+    },
+    "scripts": {}
+}

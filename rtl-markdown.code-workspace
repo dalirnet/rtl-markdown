@@ -1,0 +1,26 @@
+{
+    "folders": [
+        {
+            "path": "."
+        }
+    ],
+    "settings": {
+        "files.exclude": {
+            "**/.git": true,
+            "**/.svn": true,
+            "**/.hg": true,
+            "**/CVS": true,
+            "**/.DS_Store": true,
+            "**/node_modules": true,
+            "**/package-lock.json": true,
+            "**/.vscode": true,
+            "**/.eslintrc.json": true,
+            "**/.gitignore": true,
+            "**/.prettierrc": true,
+            "**/.vscodeignore": true,
+            "**/jsconfig.json": true
+        },
+        "explorerExclude.backup": null,
+        "svg.preview.background": "transparent"
+    }
+}
