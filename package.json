@@ -17,6 +17,10 @@
     "contributes": {
         "commands": [
             {
+                "command": "rtl-markdown.install",
+                "title": "Instal RTL Markdown"
+            },
+            {
                 "command": "rtl-markdown.rtl",
                 "title": "RTL Markdown",
                 "icon": "./src/icon/rtl.svg"
