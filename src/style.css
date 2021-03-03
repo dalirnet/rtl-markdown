@@ -1,3 +1,5 @@
+/*rtl-markdown-laga*/
+
 .editor-instance[aria-label*=".rtl.md"] .view-lines div.view-line {
     direction: rtl;
     width: calc(100% - 30px) !important;

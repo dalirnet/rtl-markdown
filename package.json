@@ -30,12 +30,12 @@
         "menus": {
             "editor/title": [
                 {
-                    "when": "resourceFilename =~ /^(?:.*(\\.rtl\\.md)).*$/",
+                    "when": "resourceLangId == markdown && resourceFilename =~ /^(?:.*(\\.rtl\\.md)).*$/",
                     "command": "rtl-markdown.ltr",
                     "group": "1_run"
                 },
                 {
-                    "when": "resourceFilename =~ /^(?!.*(\\.rtl\\.md)).*$/",
+                    "when": "resourceLangId == markdown && resourceFilename =~ /^(?!.*(\\.rtl\\.md)).*$/",
                     "command": "rtl-markdown.rtl",
                     "group": "1_run"
                 }
