@@ -3,6 +3,7 @@
     "displayName": "RTL Markdown",
     "description": "Markdown right to left support",
     "version": "0.0.1",
+    "publisher": "dalirnet",
     "engines": {
         "vscode": "^1.53.0"
     },
@@ -46,5 +47,8 @@
             ]
         }
     },
-    "scripts": {}
+    "scripts": {},
+    "dependencies": {
+        "sudo-prompt": "^9.2.1"
+    }
 }
