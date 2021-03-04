@@ -1,7 +1,6 @@
 const fs = require('fs')
 const os = require('os')
 const path = require('path')
-const crypto = require('crypto')
 const sudoPrompt = require('sudo-prompt')
 const vscode = require('vscode')
 

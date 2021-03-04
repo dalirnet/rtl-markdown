@@ -2,7 +2,7 @@
     "name": "rtl-markdown",
     "displayName": "RTL Markdown",
     "description": "Markdown right to left support",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "publisher": "dalirnet",
     "engines": {
         "vscode": "^1.53.0"
@@ -11,11 +11,21 @@
         "Formatters",
         "Other"
     ],
+    "keywords": [
+        "markdown",
+        "rtl",
+        "persian"
+    ],
     "activationEvents": [
         "onLanguage:markdown"
     ],
     "main": "./src/extension.js",
     "contributes": {
+        "configurationDefaults": {
+            "[markdown]": {
+                "editor.minimap.enabled": false
+            }
+        },
         "commands": [
             {
                 "command": "rtl-markdown.install",
@@ -49,7 +59,10 @@
                     "group": "1_run"
                 }
             ]
-        }
+        },
+        "markdown.previewStyles": [
+            "./src/preview.css"
+        ]
     },
     "scripts": {},
     "dependencies": {
