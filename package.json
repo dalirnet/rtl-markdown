@@ -2,7 +2,7 @@
     "name": "rtl-markdown",
     "displayName": "RTL Markdown",
     "description": "Markdown right to left support",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "publisher": "dalirnet",
     "engines": {
         "vscode": "^1.53.0"

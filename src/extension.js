@@ -31,10 +31,10 @@ const install = () => {
     if (!injection.status()) {
         const command = {
             backup() {
-                return `${injection.command} ${workbench.path.style} >> ${workbench.path.backup}`
+                return `${injection.command} "${workbench.path.style}" >> "${workbench.path.backup}"`
             },
             inject() {
-                return `${injection.command} ${injection.subject} >> ${workbench.path.style}`
+                return `${injection.command} "${injection.subject}" >> "${workbench.path.style}"`
             },
         }
         try {
@@ -59,7 +59,7 @@ const install = () => {
 
 const uninstall = () => {
     if (injection.status()) {
-        const command = `${injection.command} ${workbench.path.backup} > ${workbench.path.style}`
+        const command = `${injection.command} "${workbench.path.backup}" > "${workbench.path.style}"`
         try {
             sudoPrompt.exec(command, { name: 'RTL Markdown' }, (e) => {
                 if (e) {
