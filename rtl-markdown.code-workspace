@@ -19,8 +19,6 @@
             "**/.prettierrc": true,
             "**/.vscodeignore": true,
             "**/jsconfig.json": true
-        },
-        "explorerExclude.backup": null,
-        "svg.preview.background": "transparent"
+        }
     }
 }

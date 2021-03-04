@@ -22,6 +22,10 @@
                 "title": "Instal RTL Markdown"
             },
             {
+                "command": "rtl-markdown.uninstall",
+                "title": "Uninstal RTL Markdown"
+            },
+            {
                 "command": "rtl-markdown.rtl",
                 "title": "RTL Markdown",
                 "icon": "./src/icon/rtl.svg"
