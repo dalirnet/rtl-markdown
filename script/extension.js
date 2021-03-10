@@ -8,7 +8,7 @@ const injection = {
     command: os.platform() === 'win32' ? 'type' : 'cat',
     flag: /\/\*rtl\-markdown\*\//,
     target: 'vs/workbench/workbench.desktop.main.css',
-    subject: path.resolve(__dirname, 'style.css'),
+    subject: path.resolve(__dirname, '../style/inject.css'),
     status: () => !!workbench.file().match(injection.flag),
 }
 

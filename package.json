@@ -2,8 +2,9 @@
     "name": "rtl-markdown",
     "displayName": "RTL Markdown",
     "description": "Markdown right to left support",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "publisher": "dalirnet",
+    "icon": "icon.png",
     "engines": {
         "vscode": "^1.53.0"
     },
@@ -19,7 +20,7 @@
     "activationEvents": [
         "onLanguage:markdown"
     ],
-    "main": "./src/extension.js",
+    "main": "./script/extension.js",
     "contributes": {
         "configurationDefaults": {
             "[markdown]": {
@@ -38,12 +39,12 @@
             {
                 "command": "rtl-markdown.rtl",
                 "title": "RTL Markdown",
-                "icon": "$(debug-step-back)"
+                "icon": "$(debug-step-over)"
             },
             {
                 "command": "rtl-markdown.ltr",
                 "title": "LTR Markdown",
-                "icon": "$(debug-step-over)"
+                "icon": "$(debug-step-back)"
             }
         ],
         "menus": {
@@ -61,7 +62,11 @@
             ]
         },
         "markdown.previewStyles": [
-            "./src/preview.css"
+            "./style/preview.css",
+            "./style/github.css"
+        ],
+        "markdown.previewScripts": [
+            "./script/preview.js"
         ]
     },
     "scripts": {},
