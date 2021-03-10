@@ -2,7 +2,7 @@
     "name": "rtl-markdown",
     "displayName": "RTL Markdown",
     "description": "Markdown right to left support",
-    "version": "0.0.4",
+    "version": "0.0.6",
     "publisher": "dalirnet",
     "icon": "icon.png",
     "engines": {

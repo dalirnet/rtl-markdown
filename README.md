@@ -2,4 +2,4 @@
 
 Vscode markdown right to left support
 
-![demo](/demo.gif)
+![demo](https://github.com/dalirnet/rtl-markdown/raw/master/demo.gif)
