@@ -26,7 +26,7 @@ const workbench = {
     },
 }
 
-const install = () => {
+const active = () => {
     if (!injection.status()) {
         const command = {
             backup() {
@@ -40,42 +40,42 @@ const install = () => {
             sudoPrompt.exec([command.backup(), command.inject()].join(' && '), { name: 'RTL Markdown' }, (e) => {
                 if (e) {
                     console.log(e)
-                    vscode.window.showErrorMessage('"RTL Markdown" cannot be installed!')
+                    vscode.window.showErrorMessage('"RTL Markdown" cannot be active!')
                 } else {
-                    vscode.window.showInformationMessage('"RTL Markdown" was installed successfully.', 'Restart').then(() => {
+                    vscode.window.showInformationMessage('"RTL Markdown" was active successfully.', 'Restart').then(() => {
                         vscode.commands.executeCommand('workbench.action.reloadWindow')
                     })
                 }
             })
         } catch (e) {
             console.log(e)
-            vscode.window.showErrorMessage('"RTL Markdown" cannot be installed!')
+            vscode.window.showErrorMessage('"RTL Markdown" cannot be active!')
         }
     } else {
-        vscode.window.showWarningMessage('"RTL Markdown" is already installed!')
+        vscode.window.showWarningMessage('"RTL Markdown" is already active!')
     }
 }
 
-const uninstall = () => {
+const deactive = () => {
     if (injection.status()) {
         const command = `${injection.command} "${workbench.path.backup}" > "${workbench.path.style}"`
         try {
             sudoPrompt.exec(command, { name: 'RTL Markdown' }, (e) => {
                 if (e) {
                     console.log(e)
-                    vscode.window.showErrorMessage('"RTL Markdown" cannot be uninstalled!')
+                    vscode.window.showErrorMessage('"RTL Markdown" cannot be deactive!')
                 } else {
-                    vscode.window.showInformationMessage('"RTL Markdown" was uninstalled successfully.', 'Restart').then(() => {
+                    vscode.window.showInformationMessage('"RTL Markdown" was deactive successfully.', 'Restart').then(() => {
                         vscode.commands.executeCommand('workbench.action.reloadWindow')
                     })
                 }
             })
         } catch (e) {
             console.log(e)
-            vscode.window.showErrorMessage('"RTL Markdown" cannot be uninstalled!')
+            vscode.window.showErrorMessage('"RTL Markdown" cannot be deactive!')
         }
     } else {
-        vscode.window.showWarningMessage('"RTL Markdown" is already uninstalled!')
+        vscode.window.showWarningMessage('"RTL Markdown" is already deactive!')
     }
 }
 
@@ -90,15 +90,15 @@ const switchDirection = (from, to) => {
             vscode.workspace.applyEdit(workspaceEdit)
         }
     } else {
-        vscode.window.showWarningMessage('"RTL Markdown" is not installed!', 'Install').then(() => install())
+        vscode.window.showWarningMessage('"RTL Markdown" is not active!', 'Active').then(() => active())
     }
 }
 
 module.exports = {
     activate: (context) => {
         context.subscriptions.push([
-            vscode.commands.registerCommand('rtl-markdown.install', () => install()),
-            vscode.commands.registerCommand('rtl-markdown.uninstall', () => uninstall()),
+            vscode.commands.registerCommand('rtl-markdown.active', () => active()),
+            vscode.commands.registerCommand('rtl-markdown.deactive', () => deactive()),
             vscode.commands.registerCommand('rtl-markdown.rtl', () => switchDirection('.md', '.rtl.md')),
             vscode.commands.registerCommand('rtl-markdown.ltr', () => switchDirection('.rtl.md', '.md')),
         ])

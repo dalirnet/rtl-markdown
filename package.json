@@ -2,7 +2,7 @@
     "name": "rtl-markdown",
     "displayName": "RTL Markdown",
     "description": "Markdown right to left support",
-    "version": "0.0.6",
+    "version": "0.0.7",
     "publisher": "dalirnet",
     "icon": "icon.png",
     "engines": {
@@ -29,12 +29,12 @@
         },
         "commands": [
             {
-                "command": "rtl-markdown.install",
-                "title": "Instal RTL Markdown"
+                "command": "rtl-markdown.active",
+                "title": "Active RTL Markdown"
             },
             {
-                "command": "rtl-markdown.uninstall",
-                "title": "Uninstal RTL Markdown"
+                "command": "rtl-markdown.deactive",
+                "title": "Deactive RTL Markdown"
             },
             {
                 "command": "rtl-markdown.rtl",
