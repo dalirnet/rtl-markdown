@@ -1,20 +1,23 @@
 # RTL Markdown
 
-Vscode markdown right to left support
+VSCode Markdown Right-to-Left support.
 
-##### Activation guide:
+## Activation Guide:
 
--   After Install the plugin active it with command `Active RTL-Markdown`.
--   Restart VSCode for change to take effect. (this plugin change VSCode core files)
+-   After Installing the plugin, activate it using the command `Active RTL-Markdown`.
+-   Restart VSCode for change to take effect. (This plugin changes VSCode core files.)
 -   Ignore VSCode warning about core changes.
--   Change your file name ext to `.rtl.md` for example `list.md` to `list.rtl.md`.
+-   Change your file name extension to `.rtl.md` for example `list.md` to `list.rtl.md`.
 -   Now you should see RTL layout of your markdown file.
 
-##### Commands
+## Commands
 
--   The `Active RTL-Markdown` command active plugin and change VSCode core file
--   The `Deactive RTL-Markdown` command deactive plugin and reset VSCode core file to default
--   The `RTL Markdown` command change file ext to `.rtl.md`
--   The `LTR Markdown` command change file ext to `.md`
+|Command|Effect
+|-|-|
+`Active RTL-Markdown` | Activate the plugin & change VSCode core file
+`Deactive RTL-Markdown` | Deactivate the plugin & reset VSCode core file to default
+`RTL Markdown` | Change file extension to `.rtl.md`
+`LTR Markdown` | Change file extension to `.md`
 
+## Demo
 ![demo](https://github.com/dalirnet/rtl-markdown/raw/master/demo.gif)
