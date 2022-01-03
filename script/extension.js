@@ -4,14 +4,6 @@ const path = require('path')
 const sudoPrompt = require('sudo-prompt')
 const vscode = require('vscode')
 
-const injection = {
-    command: os.platform() === 'win32' ? 'type' : 'cat',
-    flag: /\/\*rtl\-markdown\*\//,
-    target: 'vs/workbench/workbench.desktop.main.css',
-    subject: path.resolve(__dirname, '../style/inject.css'),
-    status: () => !!workbench.file().match(injection.flag),
-}
-
 const workbench = {
     path: {
         get style() {
@@ -24,6 +16,14 @@ const workbench = {
     file() {
         return fs.existsSync(workbench.path.style) ? fs.readFileSync(workbench.path.style).toString() : String()
     },
+}
+
+const injection = {
+    command: os.platform() === 'win32' ? 'type' : 'cat',
+    flag: /\/\*rtl\-markdown\*\//,
+    target: 'vs/workbench/workbench.desktop.main.css',
+    subject: path.resolve(__dirname, '../style/inject.css'),
+    status: () => !!workbench.file().match(injection.flag),
 }
 
 const active = () => {
@@ -39,7 +39,7 @@ const active = () => {
         try {
             sudoPrompt.exec([command.backup(), command.inject()].join(' && '), { name: 'RTL Markdown' }, (e) => {
                 if (e) {
-                    console.log(e)
+                    console.log('rtl-markdown', e)
                     vscode.window.showErrorMessage('"RTL Markdown" cannot be active!')
                 } else {
                     vscode.window.showInformationMessage('"RTL Markdown" was active successfully.', 'Restart').then(() => {
@@ -48,7 +48,7 @@ const active = () => {
                 }
             })
         } catch (e) {
-            console.log(e)
+            console.log('rtl-markdown', e)
             vscode.window.showErrorMessage('"RTL Markdown" cannot be active!')
         }
     } else {
@@ -62,7 +62,7 @@ const deactive = () => {
         try {
             sudoPrompt.exec(command, { name: 'RTL Markdown' }, (e) => {
                 if (e) {
-                    console.log(e)
+                    console.log('rtl-markdown', e)
                     vscode.window.showErrorMessage('"RTL Markdown" cannot be deactive!')
                 } else {
                     vscode.window.showInformationMessage('"RTL Markdown" was deactive successfully.', 'Restart').then(() => {
@@ -71,7 +71,7 @@ const deactive = () => {
                 }
             })
         } catch (e) {
-            console.log(e)
+            console.log('rtl-markdown', e)
             vscode.window.showErrorMessage('"RTL Markdown" cannot be deactive!')
         }
     } else {
