@@ -1,81 +1,131 @@
 const fs = require('fs')
 const os = require('os')
 const path = require('path')
-const sudoPrompt = require('sudo-prompt')
 const vscode = require('vscode')
+const sudoPrompt = require('sudo-prompt')
 
 const workbench = {
+    target: 'vs/workbench/workbench.desktop.main.css',
+    subject: path.resolve(__dirname, '../style/inject.css'),
     path: {
-        get style() {
-            return path.resolve(require.main.path, injection.target)
+        get original() {
+            return path.resolve(require.main.path, workbench.target)
         },
         get backup() {
-            return workbench.path.style + '.backup'
+            return workbench.path.original + '.backup'
         },
     },
-    file() {
-        return fs.existsSync(workbench.path.style) ? fs.readFileSync(workbench.path.style).toString() : String()
+    file(filePath) {
+        if (fs.existsSync(filePath)) {
+            return fs.readFileSync(filePath).toString()
+        }
+
+        return String()
     },
 }
 
 const injection = {
-    command: os.platform() === 'win32' ? 'type' : 'cat',
     flag: /\/\*rtl\-markdown\*\//,
-    target: 'vs/workbench/workbench.desktop.main.css',
-    subject: path.resolve(__dirname, '../style/inject.css'),
-    status: () => !!workbench.file().match(injection.flag),
+    command: os.platform() === 'win32' ? 'type' : 'cat',
+    status: () => {
+        return !!workbench.file(workbench.path.original).match(injection.flag)
+    },
+    action: {
+        active(sudo = true, callback) {
+            if (sudo) {
+                sudoPrompt.exec(
+                    [
+                        `${injection.command} "${workbench.path.original}" > "${workbench.path.backup}"`,
+                        `${injection.command} "${workbench.subject}" >> "${workbench.path.original}"`,
+                    ].join(' && '),
+                    { name: 'RTL Markdown' },
+                    callback
+                )
+            } else {
+                fs.copyFile(workbench.path.original, workbench.path.backup, (error) => {
+                    if (error) {
+                        callback(error)
+                    } else {
+                        fs.appendFile(workbench.path.original, workbench.file(workbench.subject), callback)
+                    }
+                })
+            }
+        },
+        deactive(sudo = true, callback) {
+            if (sudo) {
+                sudoPrompt.exec(`${injection.command} "${workbench.path.backup}" > "${workbench.path.original}"`, { name: 'RTL Markdown' }, callback)
+            } else {
+                fs.copyFile(workbench.path.backup, workbench.path.original, callback)
+            }
+        },
+    },
 }
 
 const active = () => {
     if (!injection.status()) {
-        const command = {
-            backup() {
-                return `${injection.command} "${workbench.path.style}" >> "${workbench.path.backup}"`
-            },
-            inject() {
-                return `${injection.command} "${injection.subject}" >> "${workbench.path.style}"`
-            },
-        }
-        try {
-            sudoPrompt.exec([command.backup(), command.inject()].join(' && '), { name: 'RTL Markdown' }, (e) => {
-                if (e) {
-                    console.log('rtl-markdown', e)
-                    vscode.window.showErrorMessage('"RTL Markdown" cannot be active!')
-                } else {
-                    vscode.window.showInformationMessage('"RTL Markdown" was active successfully.', 'Restart').then(() => {
-                        vscode.commands.executeCommand('workbench.action.reloadWindow')
+        vscode.window.showInformationMessage('"RTL Markdown" activation as ?', 'Administrator', 'Regular').then((as) => {
+            if (as) {
+                try {
+                    injection.action.active(as === 'Administrator', (error) => {
+                        if (error) {
+                            console.log('rtl-markdown', error)
+                            vscode.window.showErrorMessage('"RTL Markdown" cannot be active!', {
+                                detail: error.message,
+                                modal: true,
+                            })
+                        } else {
+                            vscode.window.showInformationMessage('"RTL Markdown" was active successfully.', 'Restart').then((action) => {
+                                if (action === 'Restart') {
+                                    vscode.commands.executeCommand('workbench.action.reloadWindow')
+                                }
+                            })
+                        }
+                    })
+                } catch (error) {
+                    console.log('rtl-markdown', error)
+                    vscode.window.showErrorMessage('"RTL Markdown" cannot be active!', {
+                        detail: error.message,
+                        modal: true,
                     })
                 }
-            })
-        } catch (e) {
-            console.log('rtl-markdown', e)
-            vscode.window.showErrorMessage('"RTL Markdown" cannot be active!')
-        }
+            }
+        })
     } else {
-        vscode.window.showWarningMessage('"RTL Markdown" is already active!')
+        vscode.window.showInformationMessage('"RTL Markdown" is already active!')
     }
 }
 
 const deactive = () => {
     if (injection.status()) {
-        const command = `${injection.command} "${workbench.path.backup}" > "${workbench.path.style}"`
-        try {
-            sudoPrompt.exec(command, { name: 'RTL Markdown' }, (e) => {
-                if (e) {
-                    console.log('rtl-markdown', e)
-                    vscode.window.showErrorMessage('"RTL Markdown" cannot be deactive!')
-                } else {
-                    vscode.window.showInformationMessage('"RTL Markdown" was deactive successfully.', 'Restart').then(() => {
-                        vscode.commands.executeCommand('workbench.action.reloadWindow')
+        vscode.window.showInformationMessage('"RTL Markdown" deactivation as ?', 'Administrator', 'Regular').then((as) => {
+            if (as) {
+                try {
+                    injection.action.deactive(as === 'Administrator', (error) => {
+                        if (error) {
+                            console.log('rtl-markdown', error)
+                            vscode.window.showErrorMessage('"RTL Markdown" cannot be deactive!', {
+                                detail: error.message,
+                                modal: true,
+                            })
+                        } else {
+                            vscode.window.showInformationMessage('"RTL Markdown" was deactive successfully.', 'Restart').then((action) => {
+                                if (action === 'Restart') {
+                                    vscode.commands.executeCommand('workbench.action.reloadWindow')
+                                }
+                            })
+                        }
+                    })
+                } catch (error) {
+                    console.log('rtl-markdown', error)
+                    vscode.window.showErrorMessage('"RTL Markdown" cannot be deactive!', {
+                        detail: error.message,
+                        modal: true,
                     })
                 }
-            })
-        } catch (e) {
-            console.log('rtl-markdown', e)
-            vscode.window.showErrorMessage('"RTL Markdown" cannot be deactive!')
-        }
+            }
+        })
     } else {
-        vscode.window.showWarningMessage('"RTL Markdown" is already deactive!')
+        vscode.window.showInformationMessage('"RTL Markdown" is already deactive!')
     }
 }
 
@@ -90,7 +140,11 @@ const switchDirection = (from, to) => {
             vscode.workspace.applyEdit(workspaceEdit)
         }
     } else {
-        vscode.window.showWarningMessage('"RTL Markdown" is not active!', 'Active').then(() => active())
+        vscode.window.showWarningMessage('"RTL Markdown" is not active!', 'Active').then((action) => {
+            if (action === 'Active') {
+                active()
+            }
+        })
     }
 }
 
