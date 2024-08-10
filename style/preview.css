@@ -32,7 +32,7 @@ body {
     color: initial;
 }
 
-.vscode-body code > div {
+.vscode-body code>div {
     background: none;
 }
 
@@ -67,9 +67,34 @@ body {
 body.vscode-body::-webkit-scrollbar {
     background-color: white;
 }
+
 body.vscode-body::-webkit-scrollbar-thumb {
     background-color: rgba(100, 100, 100, 0.4);
 }
+
 body.vscode-body::-webkit-scrollbar-thumb:hover {
     background-color: rgba(100, 100, 100, 0.7);
+}
+
+.vscode-body.vscode-body--rtl ul,
+.vscode-body.vscode-body--rtl ol {
+    padding-right: 2em;
+    padding-left: 0;
+}
+
+.vscode-body.vscode-body--rtl li {
+    text-align: right;
+}
+
+.vscode-body.vscode-body--rtl li>p {
+    margin-right: 0;
+    margin-left: auto;
+}
+
+.vscode-body.vscode-body--rtl ul ul,
+.vscode-body.vscode-body--rtl ul ol,
+.vscode-body.vscode-body--rtl ol ul,
+.vscode-body.vscode-body--rtl ol ol {
+    margin-right: 2em;
+    margin-left: 0;
 }
