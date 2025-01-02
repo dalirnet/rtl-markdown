@@ -9,7 +9,7 @@ const workbench = {
     subject: path.resolve(__dirname, '../style/inject.css'),
     path: {
         get original() {
-            return path.resolve(require.main.path, workbench.target)
+            return path.resolve(require?.main?.path || path.join(vscode.env.appRoot,"out"), workbench.target)
         },
         get backup() {
             return workbench.path.original + '.backup'
